@@ -210,7 +210,7 @@ function goBack() {
 }
 
 // ===== OAuth 真实登录配置 =====
-const OAUTH_MODE = true; // true=真实OAuth登录, false=模拟登录
+const OAUTH_MODE = false; // true=真实OAuth登录, false=模拟登录
 const API_BASE = 'http://localhost:3000'; // 后端服务地址，部署时改为实际域名
 
 // ===== 登录功能 =====

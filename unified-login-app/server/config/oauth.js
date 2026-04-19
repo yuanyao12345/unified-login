@@ -31,7 +31,7 @@ module.exports = {
     feishu: {
         appId: 'cli_a9564a54efb85bce',
         appSecret: 'OlM0H25YyX9kicwk0lSC9fOL1m86lw5S',
-        callbackUrl: 'http://127.0.0.1:3000/auth/feishu/callback',
+        callbackUrl: 'https://zestful-playfulness-production-b216.up.railway.app/auth/feishu/callback',
         authorizeUrl: 'https://open.feishu.cn/open-apis/authen/v1/authorize',
         accessTokenUrl: 'https://open.feishu.cn/open-apis/authen/v1/oidc/access_token',
         userInfoUrl: 'https://open.feishu.cn/open-apis/authen/v1/user_info'
