@@ -1,0 +1,25 @@
+{
+  "appId": "com.unified.login.hub",
+  "appName": "统一登录中心",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#4F6EF7",
+      "showSpinner": false,
+      "splashFullScreen": true,
+      "splashImmersive": true
+    }
+  },
+  "android": {
+    "backgroundColor": "#F5F7FA",
+    "allowMixedContent": false
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "backgroundColor": "#F5F7FA"
+  }
+}

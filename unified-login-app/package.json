@@ -1,0 +1,30 @@
+{
+  "name": "unified-login-app",
+  "version": "1.0.0",
+  "description": "统一登录中心 - 集成微信、QQ、飞书、钉钉的统一登录与消息转发应用",
+  "scripts": {
+    "dev": "node server/index.js",
+    "build": "npm run copy && npx cap sync",
+    "copy": "node scripts/copy-assets.js",
+    "sync:android": "npm run copy && npx cap sync android",
+    "sync:ios": "npm run copy && npx cap sync ios",
+    "open:android": "npx cap open android",
+    "open:ios": "npx cap open ios"
+  },
+  "keywords": [
+    "capacitor",
+    "mobile-app",
+    "unified-login",
+    "pwa"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0",
+    "axios": "^1.15.0",
+    "express": "^4.22.1"
+  }
+}

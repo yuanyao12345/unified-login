@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>统一登录中心</title>
+    <meta name="description" content="集成微信、QQ、飞书、钉钉的统一登录与消息转发应用">
+    <meta name="theme-color" content="#4F6EF7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="统一登录">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 启动页 -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <svg viewBox="0 0 80 80" width="80" height="80">
+                    <circle cx="40" cy="40" r="36" fill="none" stroke="#4F6EF7" stroke-width="3"/>
+                    <circle cx="40" cy="40" r="24" fill="none" stroke="#4F6EF7" stroke-width="2" opacity="0.6"/>
+                    <circle cx="40" cy="40" r="12" fill="#4F6EF7"/>
+                    <line x1="40" y1="4" x2="40" y2="76" stroke="#4F6EF7" stroke-width="1.5" opacity="0.3"/>
+                    <line x1="4" y1="40" x2="76" y2="40" stroke="#4F6EF7" stroke-width="1.5" opacity="0.3"/>
+                </svg>
+            </div>
+            <h1 class="splash-title">统一登录中心</h1>
+            <p class="splash-subtitle">Unified Login Hub</p>
+            <div class="splash-loader">
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录页面 -->
+    <div id="login-screen" class="screen">
+        <div class="login-header">
+            <div class="login-logo">
+                <svg viewBox="0 0 48 48" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#4F6EF7" stroke-width="2.5"/>
+                    <circle cx="24" cy="24" r="12" fill="none" stroke="#4F6EF7" stroke-width="1.5" opacity="0.6"/>
+                    <circle cx="24" cy="24" r="5" fill="#4F6EF7"/>
+                </svg>
+            </div>
+            <h2>统一登录中心</h2>
+            <p class="login-desc">一键登录，畅享多平台服务</p>
+        </div>
+
+        <div class="login-platforms">
+            <div class="platform-card" data-platform="wechat" onclick="startLogin('wechat')">
+                <div class="platform-icon wechat-icon">
+                    <svg viewBox="0 0 40 40" width="40" height="40">
+                        <path d="M15.5 8C8.6 8 3 12.7 3 18.5c0 3.3 1.8 6.3 4.7 8.2L6.5 30l4-2c1.5.5 3.1.8 4.8.8.5 0 1 0 1.5-.1-.3-1-.5-2-.5-3.1 0-5.8 5.3-10.5 11.8-10.5.5 0 1 0 1.5.1C28.5 10.3 22.4 8 15.5 8z" fill="#07C160"/>
+                        <path d="M37 23.6c0-4.8-4.5-8.6-10-8.6s-10 3.9-10 8.6 4.5 8.6 10 8.6c1.3 0 2.5-.2 3.7-.6l3 1.5-1-2.8C35.4 28.9 37 26.4 37 23.6z" fill="#07C160"/>
+                    </svg>
+                </div>
+                <div class="platform-info">
+                    <h3>微信</h3>
+                    <p>未登录</p>
+                </div>
+                <div class="platform-status not-logged">
+                    <span class="status-dot"></span>
+                </div>
+            </div>
+
+            <div class="platform-card" data-platform="qq" onclick="startLogin('qq')">
+                <div class="platform-icon qq-icon">
+                    <svg viewBox="0 0 40 40" width="40" height="40">
+                        <circle cx="20" cy="20" r="18" fill="#12B7F5"/>
+                        <ellipse cx="14" cy="16" rx="3" ry="3.5" fill="white"/>
+                        <ellipse cx="26" cy="16" rx="3" ry="3.5" fill="white"/>
+                        <ellipse cx="14" cy="16.5" rx="1.5" ry="2" fill="#333"/>
+                        <ellipse cx="26" cy="16.5" rx="1.5" ry="2" fill="#333"/>
+                        <path d="M13 24c0 0 2 4 7 4s7-4 7-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="platform-info">
+                    <h3>QQ</h3>
+                    <p>未登录</p>
+                </div>
+                <div class="platform-status not-logged">
+                    <span class="status-dot"></span>
+                </div>
+            </div>
+
+            <div class="platform-card" data-platform="feishu" onclick="startLogin('feishu')">
+                <div class="platform-icon feishu-icon">
+                    <svg viewBox="0 0 40 40" width="40" height="40">
+                        <rect x="4" y="4" width="32" height="32" rx="8" fill="#3370FF"/>
+                        <path d="M12 14h16M12 20h12M12 26h8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="30" cy="26" r="4" fill="#FF6B6B"/>
+                        <path d="M28 26l2-2 2 2-2 2z" fill="white"/>
+                    </svg>
+                </div>
+                <div class="platform-info">
+                    <h3>飞书</h3>
+                    <p>未登录</p>
+                </div>
+                <div class="platform-status not-logged">
+                    <span class="status-dot"></span>
+                </div>
+            </div>
+
+            <div class="platform-card" data-platform="dingtalk" onclick="startLogin('dingtalk')">
+                <div class="platform-icon dingtalk-icon">
+                    <svg viewBox="0 0 40 40" width="40" height="40">
+                        <circle cx="20" cy="20" r="18" fill="#3296FA"/>
+                        <path d="M14 12l12 8-12 8z" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="20" r="4" fill="#3296FA"/>
+                        <path d="M18 18l4 4" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div class="platform-info">
+                    <h3>钉钉</h3>
+                    <p>未登录</p>
+                </div>
+                <div class="platform-status not-logged">
+                    <span class="status-dot"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            <button class="btn-enter-main" id="btn-enter-main" onclick="enterMainScreen()" style="display:none">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                进入消息中心
+            </button>
+            <p>登录即表示同意 <a href="#">服务协议</a> 和 <a href="#">隐私政策</a></p>
+        </div>
+    </div>
+
+    <!-- 登录弹窗 -->
+    <div id="login-modal" class="modal">
+        <div class="modal-overlay" onclick="closeLoginModal()"></div>
+        <div class="modal-content login-modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeLoginModal()">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+                <div id="modal-platform-icon"></div>
+                <h3 id="modal-platform-name">登录</h3>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <div class="form-group">
+                        <label>账号 / 手机号</label>
+                        <div class="input-wrapper">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#999" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <input type="text" id="login-account" placeholder="请输入账号或手机号" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <div class="input-wrapper">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#999" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <input type="password" id="login-password" placeholder="请输入密码" autocomplete="off">
+                            <button class="toggle-password" onclick="togglePassword()">
+                                <svg id="eye-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#999" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember-login" checked>
+                            <span class="checkmark"></span>
+                            记住登录30天
+                        </label>
+                        <a href="#" class="forgot-password">忘记密码？</a>
+                    </div>
+                    <button class="btn-login" id="btn-login" onclick="performLogin()">
+                        <span class="btn-text">登录</span>
+                        <span class="btn-loading" style="display:none">
+                            <div class="spinner"></div>
+                            登录中...
+                        </span>
+                    </button>
+                </div>
+                <div class="login-divider">
+                    <span>其他登录方式</span>
+                </div>
+                <div class="alt-login-methods">
+                    <button class="alt-method" onclick="simulateQRLogin()">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/>
+                            <line x1="21" y1="14" x2="21" y2="21"/><line x1="14" y1="21" x2="21" y2="21"/>
+                        </svg>
+                        扫码登录
+                    </button>
+                    <button class="alt-method" onclick="simulateSMSLogin()">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        短信验证码
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主界面 -->
+    <div id="main-screen" class="screen">
+        <!-- 顶部导航 -->
+        <div class="main-header">
+            <div class="header-left">
+                <h2>统一消息中心</h2>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" onclick="showSettings()">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- 平台标签栏 -->
+        <div class="platform-tabs">
+            <button class="tab active" data-tab="all" onclick="switchTab('all')">
+                全部
+                <span class="tab-badge" id="badge-all">0</span>
+            </button>
+            <button class="tab" data-tab="wechat" onclick="switchTab('wechat')">
+                <span class="tab-icon wechat-dot"></span> 微信
+                <span class="tab-badge" id="badge-wechat">0</span>
+            </button>
+            <button class="tab" data-tab="qq" onclick="switchTab('qq')">
+                <span class="tab-icon qq-dot"></span> QQ
+                <span class="tab-badge" id="badge-qq">0</span>
+            </button>
+            <button class="tab" data-tab="feishu" onclick="switchTab('feishu')">
+                <span class="tab-icon feishu-dot"></span> 飞书
+                <span class="tab-badge" id="badge-feishu">0</span>
+            </button>
+            <button class="tab" data-tab="dingtalk" onclick="switchTab('dingtalk')">
+                <span class="tab-icon dingtalk-dot"></span> 钉钉
+                <span class="tab-badge" id="badge-dingtalk">0</span>
+            </button>
+        </div>
+
+        <!-- 消息列表 -->
+        <div class="message-list" id="message-list">
+            <!-- 动态生成 -->
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchNav('messages')">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>消息</span>
+            </button>
+            <button class="nav-item" onclick="switchNav('contacts')">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>通讯录</span>
+            </button>
+            <button class="nav-item" onclick="switchNav('forward')">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 3 21 3 21 9"/>
+                    <polyline points="9 21 3 21 3 15"/>
+                    <line x1="21" y1="3" x2="14" y2="10"/>
+                    <line x1="3" y1="21" x2="10" y2="14"/>
+                </svg>
+                <span>转发</span>
+            </button>
+            <button class="nav-item" onclick="switchNav('profile')">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>我的</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 聊天详情页 -->
+    <div id="chat-screen" class="screen">
+        <div class="chat-header">
+            <button class="chat-back" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <div class="chat-title-info">
+                <h3 id="chat-title">对话</h3>
+                <span id="chat-platform-tag" class="platform-tag"></span>
+            </div>
+            <button class="chat-action" onclick="showForwardFromChat()">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- 动态生成 -->
+        </div>
+        <div class="chat-input-area">
+            <button class="chat-tool-btn" onclick="handleCopyFromChat()">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+            </button>
+            <input type="text" id="chat-input" placeholder="输入消息..." onkeypress="handleChatKeypress(event)">
+            <button class="chat-send-btn" onclick="sendMessage()">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- 转发页面 -->
+    <div id="forward-screen" class="screen">
+        <div class="forward-header">
+            <button class="chat-back" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <h3>转发到</h3>
+        </div>
+        <div class="forward-content-preview" id="forward-preview">
+            <!-- 转发内容预览 -->
+        </div>
+        <div class="forward-platform-section">
+            <h4>选择目标平台</h4>
+            <div class="forward-platform-list" id="forward-platform-list">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+        <div class="forward-contact-list" id="forward-contact-list">
+            <!-- 动态生成 -->
+        </div>
+        <div class="forward-actions">
+            <button class="btn-forward" onclick="executeForward()">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+                发送转发
+            </button>
+        </div>
+    </div>
+
+    <!-- 设置页面 -->
+    <div id="settings-screen" class="screen">
+        <div class="settings-header">
+            <button class="chat-back" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <h3>设置</h3>
+        </div>
+        <div class="settings-content">
+            <div class="settings-section">
+                <h4>账号管理</h4>
+                <div id="settings-accounts">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>通用设置</h4>
+                <div class="settings-item">
+                    <span>消息通知</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <span>自动同步</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <span>凭证有效期</span>
+                    <span class="settings-value">30天</span>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>转发设置</h4>
+                <div class="settings-item">
+                    <span>跨平台转发</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <span>转发时显示来源</span>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <button class="btn-logout-all" onclick="logoutAll()">退出所有账号</button>
+        </div>
+    </div>
+
+    <!-- Toast 通知 -->
+    <div id="toast" class="toast"></div>
+
+    <!-- 转发成功动画 -->
+    <div id="forward-success-overlay" class="forward-success-overlay" style="display:none">
+        <div class="forward-success-content">
+            <div class="success-checkmark">
+                <svg viewBox="0 0 52 52" width="52" height="52">
+                    <circle cx="26" cy="26" r="25" fill="none" stroke="#4CAF50" stroke-width="2"/>
+                    <path fill="none" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <p>转发成功！</p>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // 注册 Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered:', reg.scope))
+                    .catch(err => console.log('SW registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
